@@ -1,6 +1,6 @@
-
-SET NAMES 'utf8';
-SET CHARACTER SET 'utf8';
+--
+-- SET NAMES 'utf8';
+-- SET CHARACTER SET 'utf8';
 
 
 -- create table pers
@@ -192,7 +192,7 @@ INSERT INTO characters (name, sex, alignment, universe) VALUES
 
 create table battles
 (
- id int auto_increment primary key,
+ id SERIAL not null,
  first INT not null,
  first_power float not null,
  second INT not null,
