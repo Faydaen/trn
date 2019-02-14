@@ -20,7 +20,7 @@ $query = 'SELECT * FROM characters';
 
 $result = pg_query($db_connection, $query);
 
-while ($row = pg_fetch_row($result)) {
+while ($row = pg_fetch_assoc($result)) {
 //    echo "Автор: $row[0]  E-mail: $row[1]";
     print_r($row);
     echo "<br />\n";
