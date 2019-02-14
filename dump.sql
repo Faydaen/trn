@@ -1,19 +1,37 @@
 
-create table pers
+SET NAMES 'utf8';
+SET CHARACTER SET 'utf8';
+
+
+-- create table pers
+-- (
+--   id        int auto_increment  primary key,
+--   name      VARCHAR(128)        null,
+--   sex       VARCHAR(1)          null,
+--   alignment VARCHAR(64)         null,
+--   universe  VARCHAR(64)         null,
+--   power     float default '10'  not null,
+--   isAlive   tinyint default '1' null,
+--   buttle    json                null,
+--   image     varchar(64)         null
+-- );
+
+
+-- INSERT INTO `tour`.`pers` (`name`, `sex`, `alignment`, `universe`) VALUES
+
+
+CREATE TABLE characters
 (
-  id        int auto_increment  primary key,
+  id        SERIAL              not null,
   name      VARCHAR(128)        null,
   sex       VARCHAR(1)          null,
   alignment VARCHAR(64)         null,
   universe  VARCHAR(64)         null,
   power     float default '10'  not null,
-  isAlive   tinyint default '1' null,
-  buttle    json                null,
-  image     varchar(64)         null
+  image     VARCHAR(64)         null
 );
 
-
-INSERT INTO `tour`.`pers` (`name`, `sex`, `alignment`, `universe`) VALUES 
+INSERT INTO characters (name, sex, alignment, universe) VALUES
 -- mortal kombat
 ('Соня Блейд', 'f', 'good', 'mortal kombat'),
 ('Сабизо', 'm', 'good', 'mortal kombat'),
@@ -169,5 +187,21 @@ INSERT INTO `tour`.`pers` (`name`, `sex`, `alignment`, `universe`) VALUES
 ('Локи', 'm', 'evil', 'other'),
 ('Лилу', 'f', 'good', 'other'),
 ('Джек Воробей', 'm', 'neutral', 'other');
+
+
+
+create table battles
+(
+ id int auto_increment primary key,
+ first INT not null,
+ first_power float not null,
+ second INT not null,
+ second_power float not null,
+ winner INT not null,
+ damage float not null,
+ battlefield varchar(64) null,
+ finishing text null
+);
+
 
 
