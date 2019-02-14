@@ -1,38 +1,47 @@
 <?php
 
-$dbname='postgres';
-$host='localhost';
-$port='22223';
-$user='postgres';
-$password='qwerty';
 
-$db_connection = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
 
-if (!$db_connection) {
-    echo "Произошла ошибка\n";
-    exit;
-}
-else {
-    echo "Успешно подключено\n";
-}
 
-$query = 'SELECT * FROM characters';
+function соединение(){
+    $dbname='postgres';
+    $host='localhost';
+    $port='22223';
+    $user='postgres';
+    $password='qwerty';
 
-$result = pg_query($db_connection, $query);
+    $connection = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
 
-while ($row = pg_fetch_assoc($result)) {
-//    echo "Автор: $row[0]  E-mail: $row[1]";
-    print_r($row);
-    echo "<br />\n";
+    if (!$connection) {
+        echo "Произошла ошибка\n";
+        exit;
+    }
+    return $connection;
 }
 
 
+function получить_всех_персонажей(){
+    $query = 'SELECT * FROM characters';
+    $connection = соединение();
+    $result = pg_query($connection, $query);
 
-//// $dbh->query('SELECT * FROM pres');
-//foreach($dbh->query('SELECT * from pers') as $row) {
-//        print_r($row);
-//}
-//
-//die('dd');
+    $chars = [];
 
-// $connection->exec('INSERT INTO users VALUES (1, "somevalue"');
+    while ($row = pg_fetch_assoc($result)) {
+        $chars[] = $row;
+    }
+    return $chars;
+}
+
+function получить_персонажа($id){
+    $query = 'SELECT * FROM characters WHERE id='.$id;
+    $connection = соединение();
+    $result = pg_query($connection, $query);
+    return pg_fetch_assoc($result);
+}
+
+
+
+function получить_двух_случайный_персонажей(){
+
+}

@@ -1,24 +1,3 @@
---
--- SET NAMES 'utf8';
--- SET CHARACTER SET 'utf8';
-
-
--- create table pers
--- (
---   id        int auto_increment  primary key,
---   name      VARCHAR(128)        null,
---   sex       VARCHAR(1)          null,
---   alignment VARCHAR(64)         null,
---   universe  VARCHAR(64)         null,
---   power     float default '10'  not null,
---   isAlive   tinyint default '1' null,
---   buttle    json                null,
---   image     varchar(64)         null
--- );
-
-
--- INSERT INTO `tour`.`pers` (`name`, `sex`, `alignment`, `universe`) VALUES
-
 
 CREATE TABLE characters
 (
@@ -188,6 +167,20 @@ INSERT INTO characters (name, sex, alignment, universe) VALUES
 ('Лилу', 'f', 'good', 'other'),
 ('Джек Воробей', 'm', 'neutral', 'other');
 
+--
+-- ('Ксардас', 'm', 'neutral', 'gothic'),
+-- ('Дьябло', 'm', 'evil', 'other'),
+-- ('Мелифисента', 'f', 'good', 'other'),
+-- ('Харли Квин', 'f', 'neutral', 'other'),
+-- ('Картмен', 'm', 'evil', 'other'),
+-- ('Фейтон', 'm', 'evil', 'other'),
+-- ('Туранга Лила', 'f', 'good', 'other'),
+-- Нара Бёрнс
+-- Ливия
+-- терминатор
+-- сара конор
+-- джуди хопс
+-- дедпул
 
 
 create table battles

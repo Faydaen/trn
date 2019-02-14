@@ -1,6 +1,6 @@
 
 ## Запуск сервиса базы через докер
-```
+```bash
 docker run --name db --hostname db -e POSTGRES_PASSWORD=qwerty -p 22223:5432 -v $(pwd):/app --workdir /app -d postgres:10
 ```
 port 22223
