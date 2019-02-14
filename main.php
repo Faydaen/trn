@@ -1,34 +1,57 @@
 <?php
 
 // connect
-$user='ghost';
-$pass = 'qwerty';
-$dbh = new PDO('mysql:host=localhost;dbname=tour', $user, $pass);
+include ('connect.php');
 
 
-$allPers = 
 
-// завершеные бои
-$asdfaf
+$status = getStatus();
 
-$pase = 
-
-если фаза 1
-или даже если нет ни первого ни второго игрока
-if (){
-    выбор игрока (случайного из бд)
+if ($status['battlefield'] == ''){
+    $status['battlefield'] = setButtlefield();
+    saveStatus($status);
 }
 
-если есть превый игрок но нет второго 
-если фаза 2
-if (){
-    выбор вторго игрока
+if ($status['first_character'] == ''){
+    $status['first_character'] = setFirstChar();
+    saveStatus($status);
+
 }
 
-если есть оба игрока
-если файза 3
-if (){
-    битва
-    
-    
+if ($status['second_character'] == ''){
+    $status['second_character'] = setFirstChar();
+    saveStatus($status);
+}
+
+if ($status['second_character'] != ''){
+    runCombat();
+    saveStatus($status);
+}
+
+$allCaracterts = getAllCaracters();
+$allButtles = = getAllBattles();
+
+
+//-----
+
+function getStatus(){
+    return json_decode(file_get_contents('status.json'),true)
+}
+
+function saveStatus($status)
+{
+    $json = json_encode($status);
+    file_put_contents('status.json',$json);
+}
+
+function setButtlefield(){
+    $butelfields = [
+        'город',
+        'пустош',
+        'замок',
+        'лес',
+    'станция',
+    ];
+
+
 }
