@@ -1,12 +1,11 @@
 
 create table pers
 (
-  id        int auto_increment
-    primary key,
-  name      varchar(128)        null,
-  sex       tinyint             null,
-  alignment varchar(64)         null,
-  universe  varchar(64)         null,
+  id        int auto_increment  primary key,
+  name      VARCHAR(128)        null,
+  sex       VARCHAR(1)          null,
+  alignment VARCHAR(64)         null,
+  universe  VARCHAR(64)         null,
   power     float default '10'  not null,
   isAlive   tinyint default '1' null,
   buttle    json                null,
