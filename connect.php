@@ -19,10 +19,9 @@
 
 $user='ghost';
 $pass = 'qwerty';
-$port="21113";
+// $port="21113";
 $dbname='tour';
 $host='localhost';
-die("mysql:host=$host;dbname=$dbname;port=$port");
 $dbh = new PDO("mysql:host=$host;dbname=$dbname;port=$port", $user, $pass);
 
 
