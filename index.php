@@ -35,23 +35,18 @@
 <body>
 <div class="section">
     <div class="container">
+
+
+
         <div class="columns ">
             <div class="column">
+                <?php
+                include 'char.php'
+                ?>
             </div>
             <div class="column">
 
                 <?php foreach ($characters as $char): ?>
-
-
-                <div class="is-size-4">
-
-
-                </div>
-
-
-
-
-
 
                     <div class="box ">
                         <article class="media">
@@ -100,17 +95,6 @@
                             </div>
                         </article>
                     </div>
-
-
-
-
-
-
-<!--                    universe-->
-
-
-<!--                -->
-<!--                --><?//=$char['alignment']?>
 
 
                 <?php endforeach; ?>

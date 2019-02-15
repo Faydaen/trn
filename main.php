@@ -4,104 +4,128 @@
 include('connect.php');
 
 
-//$персонаж = получить_персонажа_персонажа(1);
-//dd($a);
+$aliveCount = получить_количество_живых_персонажей();
+$allCount = получить_количество_всех_персонажей();
 
-$characters = получить_всех_персонажей();
-//$characters = [];
+$characters = [];
+$characters = получить_двух_случайный_персонажей();
 
-//$characters[] = получить_персонажа(1);
-//$characters[] = получить_персонажа(2);
-//$characters[] = получить_персонажа(12);
-$status = getStatus();
-//dd($characters);
+if (фаза() == 'подготовка'){
+    $characters = получить_двух_случайный_персонажей();
+    записать_персонажей_в_статус($characters);
+}
 
-function getLogo($universe)
-{
-    $logos = [
-        'mortal kombat' => 'mortal_kombat.png',
-        'harry potter' => 'harry_potter.png',
-        'the hunger games' => 'the_hunger_games.png',
-        'the witcher' => 'the_witcher.png',
-        'game of thrones' => 'game_of_thrones.png',
-        'star wars' => 'star_wars.png',
-        'star craft' => 'star_craft.png',
-        'star track' => 'star_track.png',
-        'claymore' => 'claymore.png',
-        'silent hill' => 'silent_hill.png',
-        'the matrix' => 'the_matrix.png',
-        'ghost in the shell' => 'ghost_in_the_shell.png',
+
+//
+if (фаза() == 'бой'){
+    $characters = получить_двух_персонажей_из_статуса();
+//    dd($characters);
+//    $результат_боя = бой($characters[0], $characters[1]);
+//    записать_результат_боя($результат_боя);
+}
+//
+//if (фаза() == 'диалог') {
+//     // todo
+//}
+
+function получить_двух_случайный_персонажей() {
+    $characters = [];
+    $allCharacters = получить_всех_персонажей();
+    $index = array_rand($allCharacters, 2);
+    $characters[] = $allCharacters[$index[0]];
+    $characters[] = $allCharacters[$index[1]];
+    return $characters;
+}
+
+function получить_двух_персонажей_из_статуса(){
+    $characters = [];
+    $status = getStatus();
+
+    $characters[] = получить_персонажа($status['first_character']);
+    $characters[] = получить_персонажа($status['second_character']);
+    return $characters;
+}
+
+
+
+function записать_персонажей_в_статус($characters){
+    $status = [
+        'first_character'=>$characters[0]['id'],
+        'second_character'=>$characters[1]['id'],
     ];
-    return $logos[$universe];
+    saveStatus($status);
+}
+
+function получить_количество_всех_персонажей(){
+    $query = 'SELECT count(*) as c FROM characters';
+    $connection = соединение();
+    $result = pg_query($connection, $query);
+    return pg_fetch_assoc($result)['c'];
+}
+
+function получить_количество_живых_персонажей(){
+    $query = 'SELECT count(*) as c FROM characters WHERE power>0';
+    $connection = соединение();
+    $result = pg_query($connection, $query);
+    return pg_fetch_assoc($result)['c'];
 }
 
 
-//dd($status);
 
-//if ($status['battlefield'] == '') {
-//    $status['battlefield'] = setButtlefield();
-//    saveStatus($status);
+
+function фаза()
+{
+    $status = getStatus();
+    if (($status['first_character'] == '') && ($status['second_character'] == '')){
+        return 'подготовка';
+    }
+
+    if (($status['first_character'] != '') && ($status['second_character'] != '')){
+        return 'бой';
+    }
+
+    return false;
+}
+
+
+function получить_всех_персонажей(){
+    $query = 'SELECT * FROM characters';
+    $connection = соединение();
+    $result = pg_query($connection, $query);
+
+    $chars = [];
+
+    while ($row = pg_fetch_assoc($result)) {
+        $chars[] = $row;
+    }
+    return $chars;
+}
+
+function получить_персонажа($id){
+    $query = 'SELECT * FROM characters WHERE id='.$id;
+    $connection = соединение();
+    $result = pg_query($connection, $query);
+    return pg_fetch_assoc($result);
+}
+
+
+
+
+
+//function setButtlefield()
+//{
+//    $butelfields = [
+//        'город',
+//        'пустош',
+//        'замок',
+//        'лес',
+//        'станция',
+//    ];
+//
+//
 //}
-//
-//if ($status['first_character'] == '') {
-//    $status['first_character'] = setFirstChar();
-//    saveStatus($status);
-//
-//}
-//
-//if ($status['second_character'] == '') {
-//    $status['second_character'] = setFirstChar();
-//    saveStatus($status);
-//}
-//
-//if ($status['second_character'] != '') {
-//    runCombat();
-//    saveStatus($status);
-//}
-//
-//$allCaracterts = getAllCaracters();
-//$allButtles = = getAllBattles();
 
 
-function фаза_подготовки()
-{
-}
-
-function фаза_боя()
-{
-}
-
-//-----
-
-function getStatus()
-{
-    return json_decode(file_get_contents('status.json'), true);
-}
-
-function saveStatus($status)
-{
-    $json = json_encode($status);
-    file_put_contents('status.json', $json);
-}
-
-function setButtlefield()
-{
-    $butelfields = [
-        'город',
-        'пустош',
-        'замок',
-        'лес',
-        'станция',
-    ];
-
-
-}
-
-function dd($entity)
-{
-    var_dump($entity);
-    die();
-}
 
 ?>
 

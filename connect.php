@@ -19,29 +19,38 @@ function соединение(){
     return $connection;
 }
 
-
-function получить_всех_персонажей(){
-    $query = 'SELECT * FROM characters';
-    $connection = соединение();
-    $result = pg_query($connection, $query);
-
-    $chars = [];
-
-    while ($row = pg_fetch_assoc($result)) {
-        $chars[] = $row;
-    }
-    return $chars;
+function dd($entity)
+{
+    var_dump($entity);
+    die();
 }
 
-function получить_персонажа($id){
-    $query = 'SELECT * FROM characters WHERE id='.$id;
-    $connection = соединение();
-    $result = pg_query($connection, $query);
-    return pg_fetch_assoc($result);
+function getLogo($universe)
+{
+    $logos = [
+        'mortal kombat' => 'mortal_kombat.png',
+        'harry potter' => 'harry_potter.png',
+        'the hunger games' => 'the_hunger_games.png',
+        'the witcher' => 'the_witcher.png',
+        'game of thrones' => 'game_of_thrones.png',
+        'star wars' => 'star_wars.png',
+        'star craft' => 'star_craft.png',
+        'star track' => 'star_track.png',
+        'claymore' => 'claymore.png',
+        'silent hill' => 'silent_hill.png',
+        'the matrix' => 'the_matrix.png',
+        'ghost in the shell' => 'ghost_in_the_shell.png',
+    ];
+    return $logos[$universe];
 }
 
+function getStatus()
+{
+    return json_decode(file_get_contents('status.json'), true);
+}
 
-
-function получить_двух_случайный_персонажей(){
-
+function saveStatus($status)
+{
+    $json = json_encode($status);
+    file_put_contents('status.json', $json);
 }
