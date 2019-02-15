@@ -9,11 +9,6 @@
     <link rel="stylesheet" href="/bulma.min.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <style>
-        /*main {*/
-            /*width: 90%;*/
-            /*margin-left: auto;*/
-            /*margin-right: auto;*/
-        /*}*/
 
         .logo {
             display: inline-block;
@@ -21,85 +16,49 @@
             top: 8px;
         }
 
-        /*.good {*/
-            /*color: #b08def;*/
-        /*}*/
-        /*.evil {*/
-            /*color: red;*/
-        /*}*/
-        /*.neutral {*/
-            /*color: grey;*/
-        /*}*/
     </style>
 </head>
 <body>
 <div class="section">
     <div class="container">
 
+        <div class="columns ">
+            <div class="column">
+                <?php foreach ($battles as $battle): ?>
+
+                <div>
+                    <?= $battle['first']['name'] ?>
+                    <strike><?= $battle['first_power'] ?></strike>
+                    <?= $battle['first']['power'] ?>
+                    <?= ($battle['first']['id'] == $battle['winner']) ? 'Победитель' : 'Проигравший'?>
+
+                    |
+
+                    <?= $battle['second']['name'] ?>
+                    <strike><?= $battle['second_power'] ?></strike>
+                    <?= $battle['second']['power'] ?>
+                    <?= ($battle['second']['id'] == $battle['winner']) ? 'Победитель' : 'Проигравший'?>
 
 
+                    | урон <?= $battle['damage'] ?>
+                </div>
+
+                <?php endforeach; ?>
+
+            </div>
+        </div>
         <div class="columns ">
             <div class="column">
                 <?php
+                $char = $characters[0];
                 include 'char.php'
                 ?>
             </div>
             <div class="column">
-
-                <?php foreach ($characters as $char): ?>
-
-                    <div class="box ">
-                        <article class="media">
-                            <div class="media-left">
-                                <figure class="image is-128x128">
-                                    <img src="/images/avatars/<?=$char['image']?>" alt="Image">
-                                </figure>
-                            </div>
-
-                            <div class="media-content">
-                                <div class="content">
-                                    <div class="is-size-4">
-                                        <?php if($char['sex'] == 'f'): ?>
-                                            <i class="fa fa-venus"></i>
-                                        <?php else: ?>
-                                            <i class="fa fa-mars"></i>
-                                        <?php endif; ?>
-
-
-                                        <strong><?=$char['name']?></strong>
-
-                                        <div class="logo image is-32x32">
-                                            <img src="images/logos/<?=getLogo($char['universe'])?>" alt="Image">
-                                        </div>
-                                    </div>
-
-
-                                    <div class="is-size-3">
-                                        <?=$char['power']?>
-                                    </div>
-
-
-                                    <div>
-                                        <?php if($char['alignment'] == 'good'): ?>
-                                            добро
-                                        <?php elseif($char['alignment'] == 'evil'): ?>
-                                            зло
-                                        <?php elseif($char['alignment'] == 'neutral'): ?>
-                                            нейтрал
-                                        <?php endif; ?>
-
-                                        <?= ($char['power'] <= 0) ? ' [мертв]' : '' ?>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-
-
-                <?php endforeach; ?>
-
-
+                <?php
+                $char = $characters[1];
+                include 'char.php'
+                ?>
             </div>
         </div>
     </div>
