@@ -9,21 +9,35 @@
     <link rel="stylesheet" href="/bulma.min.css">
     <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
     <style>
-        main {
-            width: 90%;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .battle {
-            background-color: grey;
+        /*main {*/
+            /*width: 90%;*/
+            /*margin-left: auto;*/
+            /*margin-right: auto;*/
+        /*}*/
+
+        .logo {
             display: inline-block;
-            width: 50%;
+            position: relative;
+            top: 8px;
         }
-        .characters {
-            background-color: antiquewhite;
-            display: inline-block;
-            width: 50%;
+        .red-cross {
+            /*background-image: url(/images/system/isDead.png);*/
+            /*display: inline-block;*/
+            /*width: 128px;*/
+            /*height: 128px;*/
+            /*position: relative;*/
+            /*top: 135px;*/
+            /*z-index: 2;*/
         }
+        /*.good {*/
+            /*color: #b08def;*/
+        /*}*/
+        /*.evil {*/
+            /*color: red;*/
+        /*}*/
+        /*.neutral {*/
+            /*color: grey;*/
+        /*}*/
     </style>
 </head>
 <body>
@@ -38,34 +52,75 @@
 
 
                 <div class="is-size-4">
-                <?php if($char['sex'] == 'f'): ?>
-                        <i class="fa fa-venus"></i>
-                <?php else: ?>
-                        <i class="fa fa-mars"></i>
-                <?php endif; ?>
 
 
-
-
-
-
-                    
-
-
-
-
-
-
-
-
-                <?=$char['name']?>
                 </div>
 
+
+
+
+
+                    <div class="box ">
+                        <article class="media">
+                            <div class="media-left">
+
+
+
+
+                                <figure class="image is-128x128">
+                                    <?php if ($char['power'] <= 0): ?>
+                                        <div class="red-cross"></div>
+                                    <?php endif; ?>
+                                    <img src="/images/avatars/<?=$char['image']?>" alt="Image">
+                                </figure>
+                            </div>
+
+                            <div class="media-content">
+                                <div class="content">
+                                    <div class="is-size-4">
+                                        <?php if($char['sex'] == 'f'): ?>
+                                            <i class="fa fa-venus"></i>
+                                        <?php else: ?>
+                                            <i class="fa fa-mars"></i>
+                                        <?php endif; ?>
+
+
+                                        <strong><?=$char['name']?></strong>
+
+                                        <div class="logo image is-32x32">
+                                            <img src="images/logos/<?=getLogo($char['universe'])?>" alt="Image">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="is-size-3">
+                                        <?=$char['power']?>
+                                    </div>
+
+                                    <div>
+                                        <?php if($char['alignment'] == 'good'): ?>
+                                            добро
+                                        <?php elseif($char['alignment'] == 'evil'): ?>
+                                            зло
+                                        <?php elseif($char['alignment'] == 'neutral'): ?>
+                                            нейтрал
+                                        <?php endif; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+
+
+
+
+
+
+<!--                    universe-->
+
+
 <!--                -->
-<!--                    --><?//=$char['sex']?>
 <!--                --><?//=$char['alignment']?>
-<!--                --><?//=$char['power']?>
-<!--                --><?//=$char['image']?>
 
 
                 <?php endforeach; ?>
