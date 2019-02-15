@@ -20,15 +20,7 @@
             position: relative;
             top: 8px;
         }
-        .red-cross {
-            /*background-image: url(/images/system/isDead.png);*/
-            /*display: inline-block;*/
-            /*width: 128px;*/
-            /*height: 128px;*/
-            /*position: relative;*/
-            /*top: 135px;*/
-            /*z-index: 2;*/
-        }
+
         /*.good {*/
             /*color: #b08def;*/
         /*}*/
@@ -60,17 +52,11 @@
 
 
 
+
                     <div class="box ">
                         <article class="media">
                             <div class="media-left">
-
-
-
-
                                 <figure class="image is-128x128">
-                                    <?php if ($char['power'] <= 0): ?>
-                                        <div class="red-cross"></div>
-                                    <?php endif; ?>
                                     <img src="/images/avatars/<?=$char['image']?>" alt="Image">
                                 </figure>
                             </div>
@@ -97,6 +83,7 @@
                                         <?=$char['power']?>
                                     </div>
 
+
                                     <div>
                                         <?php if($char['alignment'] == 'good'): ?>
                                             добро
@@ -105,6 +92,9 @@
                                         <?php elseif($char['alignment'] == 'neutral'): ?>
                                             нейтрал
                                         <?php endif; ?>
+
+                                        <?= ($char['power'] <= 0) ? ' [мертв]' : '' ?>
+
                                     </div>
                                 </div>
                             </div>
