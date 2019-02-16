@@ -67,7 +67,8 @@ function бой($char1, $char2)
 }
 
 
-function получить_все_битвы(){
+function получить_все_битвы()
+{
     $query = 'SELECT * FROM battles';
     $connection = соединение();
     $result = pg_query($connection, $query);
@@ -112,7 +113,16 @@ function обновить_силу_игрока($id, $power)
 function получить_двух_случайный_персонажей()
 {
     $characters = [];
-    $allCharacters = получить_всех_персонажей();
+    $allCharacters = получить_всех_живых_персонажей();
+    if (count($allCharacters) == 1) {
+        if ($allCharacters[0]['sex'] == 'm') {
+            echo "Победил " . $allCharacters[0]['name'];
+        } else {
+            echo "Победила " . $allCharacters[0]['name'];
+        }
+
+        die();
+    }
     $index = array_rand($allCharacters, 2);
     $characters[] = $allCharacters[$index[0]];
     $characters[] = $allCharacters[$index[1]];
@@ -198,6 +208,20 @@ function фаза()
 function получить_всех_персонажей()
 {
     $query = 'SELECT * FROM characters';
+    $connection = соединение();
+    $result = pg_query($connection, $query);
+
+    $chars = [];
+
+    while ($row = pg_fetch_assoc($result)) {
+        $chars[] = $row;
+    }
+    return $chars;
+}
+
+function получить_всех_живых_персонажей()
+{
+    $query = 'SELECT * FROM characters where power>0';
     $connection = соединение();
     $result = pg_query($connection, $query);
 

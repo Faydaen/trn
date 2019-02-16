@@ -27,17 +27,25 @@
                 <?php foreach ($battles as $battle): ?>
 
                 <div>
+
+                    <?php
+                    $winner_str = '<span style="background-color: green">Победитель</span>';
+                    $loser_str = '<span style="background-color: red">Проигравший</span>';
+                    ?>
+
+                    <?= ($battle['first']['id'] == $battle['winner']) ? $winner_str : $loser_str?>
+
                     <?= $battle['first']['name'] ?>
                     <strike><?= $battle['first_power'] ?></strike>
                     <?= $battle['first']['power'] ?>
-                    <?= ($battle['first']['id'] == $battle['winner']) ? 'Победитель' : 'Проигравший'?>
 
                     |
 
+                    <?= ($battle['second']['id'] == $battle['winner']) ? $winner_str : $loser_str?>
                     <?= $battle['second']['name'] ?>
                     <strike><?= $battle['second_power'] ?></strike>
                     <?= $battle['second']['power'] ?>
-                    <?= ($battle['second']['id'] == $battle['winner']) ? 'Победитель' : 'Проигравший'?>
+
 
 
                     | урон <?= $battle['damage'] ?>
